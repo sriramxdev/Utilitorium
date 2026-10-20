@@ -1,0 +1,28 @@
+---
+import '../styles/global.css';
+import home from '../data/home.json';
+
+const { title, description } = home;
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="description" content={description} />
+		<meta name="generator" content={Astro.generator} />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
+		<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet" />
+		<title>{title}</title>
+		<script is:inline>
+			const savedTheme = localStorage.getItem('theme');
+			if (savedTheme === 'dark') document.documentElement.classList.add('dark');
+		</script>
+	</head>
+	<body>
+		<slot />
+	</body>
+</html>

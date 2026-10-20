@@ -1,0 +1,12 @@
+---
+import home from '../data/home.json';
+---
+
+<section id="hero" class="mx-auto max-w-6xl px-5 pb-20 pt-24 sm:pt-32">
+	<div class="max-w-3xl">
+		<p class="eyebrow mb-5"><span class="status-dot"></span> {home.status}</p>
+		<h1 class="font-heading text-6xl font-bold leading-[.9] tracking-tight text-primary sm:text-8xl">Build less.<br /><span class="text-brand-amber">Automate more.</span></h1>
+		<p class="mt-8 max-w-2xl text-sm leading-7 text-secondary sm:text-base">{home.description}</p>
+		<a href="#featured" class="button-primary mt-8 inline-flex items-center gap-3">Explore the workbench <span aria-hidden="true">↓</span></a>
+	</div>
+</section>

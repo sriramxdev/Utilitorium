@@ -1,0 +1,52 @@
+---
+import ThemeToggle from './ThemeToggle.astro';
+
+interface Category {
+	id: string;
+	name: string;
+}
+
+const { categories } = Astro.props as { categories: Category[] };
+---
+
+<header class="sticky top-4 z-20 mx-auto max-w-6xl px-4">
+	<nav class="glass-panel flex items-center justify-between gap-5 rounded-full px-5 py-3" aria-label="Main navigation">
+		<a href="#hero" class="font-heading text-2xl font-bold tracking-wide text-primary">UTILITORIUM<span class="text-brand-amber">.</span></a>
+		<div class="hidden items-center gap-7 text-base text-secondary sm:flex">
+			<a class="nav-link" href="#hero">Home</a>
+			<a class="nav-link" href="#featured">Featured</a>
+			<div id="category-menu" class="category-menu relative">
+				<button class="nav-link cursor-pointer border-0 bg-transparent p-0 text-base" type="button" aria-expanded="false" aria-controls="category-dropdown">
+					Categories <span class="ml-1 text-brand-amber">⌄</span>
+				</button>
+				<div id="category-dropdown" class="category-dropdown glass-panel absolute right-0 top-5 w-56 rounded-xl p-2 pt-4 shadow-xl" aria-label="Category links">
+					{categories.map((category) => <a class="nav-link block rounded-lg px-3 py-2 text-base hover:bg-panel-hover" href={`#${category.id}`}>{category.name}</a>)}
+				</div>
+			</div>
+			<a class="nav-link" href="#footer">About</a>
+		</div>
+		<ThemeToggle />
+	</nav>
+</header>
+
+<script>
+	const categoryMenu = document.querySelector('#category-menu');
+	const categoryButton = categoryMenu?.querySelector('button');
+	let closeTimer: ReturnType<typeof setTimeout> | undefined;
+
+	const closeCategoryMenu = () => {
+		if (!categoryButton) return;
+		categoryButton.setAttribute('aria-expanded', 'false');
+	};
+
+	categoryButton?.addEventListener('click', () => {
+		window.clearTimeout(closeTimer);
+		const isExpanded = categoryButton.getAttribute('aria-expanded') === 'true';
+		categoryButton.setAttribute('aria-expanded', String(!isExpanded));
+	});
+	categoryMenu?.addEventListener('mouseleave', () => {
+		closeTimer = window.setTimeout(closeCategoryMenu, 300);
+	});
+	categoryMenu?.addEventListener('mouseenter', () => window.clearTimeout(closeTimer));
+	categoryMenu?.querySelectorAll('a').forEach((link) => link.addEventListener('click', closeCategoryMenu));
+</script>

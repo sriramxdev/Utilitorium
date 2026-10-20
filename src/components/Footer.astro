@@ -1,0 +1,8 @@
+---
+import footer from '../data/footer.json';
+---
+
+<footer id="footer" class="mx-auto flex max-w-6xl flex-col gap-4 border-t border-subtle/60 px-5 py-10 text-sm text-secondary sm:flex-row sm:items-center sm:justify-between">
+	<p>{footer.copyright} <a href={footer.author.url} target="_blank" rel="noopener noreferrer" class="font-medium text-brand-amber hover:underline">{footer.author.name}</a></p>
+	<p class="flex items-center gap-2">{footer.credit.prefix} <span class="text-brand-amber">✦</span> {footer.credit.name}</p>
+</footer>

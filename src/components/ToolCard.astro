@@ -1,0 +1,31 @@
+---
+interface Tool {
+	id: string;
+	name: string;
+	description: string;
+	category: string;
+	icon: string;
+	tags: string[];
+	url: string;
+}
+
+const { tool, featured = false, visits = 0 } = Astro.props as { tool: Tool; featured?: boolean; visits?: number };
+---
+
+<article class:list={['tool-card group', { 'featured-card': featured }]} data-tool-id={tool.id}>
+	<div class="flex items-start justify-between gap-4">
+		<div class="flex min-w-0 items-center gap-3">
+			<div class="tool-icon"><img src={tool.icon} alt="" width="24" height="24" /></div>
+			<h3 class="font-heading text-xl font-bold text-primary">{tool.name}</h3>
+		</div>
+		<div class="flex items-center gap-3">
+			<span class="visit-count text-sm text-secondary" data-visit-count={tool.id}>{visits} visits</span>
+			<span class="text-lg text-brand-amber transition-transform duration-300 group-hover:translate-x-1">↗</span>
+		</div>
+	</div>
+	<p class="description mt-4 text-sm leading-6 text-secondary">{tool.description}</p>
+	<div class="mt-5 flex flex-wrap gap-2">
+		{tool.tags.map((tag) => <span class="tag">{tag}</span>)}
+	</div>
+	<a class="absolute inset-0" href={tool.url} target="_blank" rel="noopener noreferrer" aria-label={`Open ${tool.name}`} data-visit-tool={tool.id}></a>
+</article>

@@ -1,0 +1,3 @@
+[
+  { "id": "notebooklm-note-renderer", "name": "NotebookLM Note Renderer", "description": "Clean parsing and visual export for NotebookLM markdown summaries.", "category": "ai-notes", "icon": "/icons/tools/notebooklm.svg", "tags": ["Markdown", "Python", "Export"], "url": "https://github.com/sriramxdev/Utilitorium" }
+]

@@ -1,0 +1,3 @@
+[
+  { "id": "realesrgan-video-upscaler", "name": "4K Real-ESRGAN Video Upscaler", "description": "Automated FFmpeg pipeline for high-fidelity 2K/4K upscaling using anime and photo models.", "category": "media", "icon": "/icons/tools/ffmpeg-upscaler.svg", "tags": ["FFmpeg", "Real-ESRGAN", "4K"], "url": "https://github.com/sriramxdev/Utilitorium" }
+]

@@ -1,0 +1,5 @@
+[
+  { "id": "ai-notes", "name": "AI & Note Tools" },
+  { "id": "media", "name": "Media & Upscaling" },
+  { "id": "parsers", "name": "Parsers & Automation" }
+]

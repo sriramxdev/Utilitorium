@@ -1,0 +1,7 @@
+---
+import CategorySection from '../CategorySection.astro';
+import category from '../../data/categories/media.json';
+import tools from '../../data/tools/media.json';
+const { visits = {} } = Astro.props as { visits?: Record<string, number> };
+---
+<CategorySection category={category} tools={tools} visits={visits} />
