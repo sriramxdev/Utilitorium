@@ -41,6 +41,19 @@ pnpm build
 pnpm preview
 ```
 
+## Deployment
+
+Every push to `main` automatically builds and deploys the site through
+[`.github/workflows/deploy.yml`](./.github/workflows/deploy.yml).
+
+The GitHub Pages site is configured for:
+
+<https://sriramxdev.github.io/Utilitorium/>
+
+To enable the first deployment, open the repository’s **Settings → Pages** and
+select **GitHub Actions** as the source. The workflow can also be started
+manually from the **Actions** tab.
+
 ## Project structure
 
 ```text
