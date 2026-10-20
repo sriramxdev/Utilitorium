@@ -50,9 +50,8 @@ The GitHub Pages site is configured for:
 
 <https://sriramxdev.github.io/Utilitorium/>
 
-To enable the first deployment, open the repository’s **Settings → Pages** and
-select **GitHub Actions** as the source. The workflow can also be started
-manually from the **Actions** tab.
+GitHub Pages is configured to use **GitHub Actions** as its source. The workflow
+can also be started manually from the **Actions** tab.
 
 ## Project structure
 
