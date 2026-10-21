@@ -14,7 +14,7 @@
 }
 @layer base {
 	html { scroll-behavior: smooth; }
-	body { @apply bg-canvas font-mono text-primary antialiased; transition: background-color .3s ease, color .3s ease; }
+	body { @apply bg-canvas font-mono text-base text-primary antialiased; transition: background-color .3s ease, color .3s ease; }
 	h1, h2, h3, h4, h5, h6, a, summary { @apply font-heading; }
 }
 @layer components {
@@ -24,7 +24,7 @@
 	.tool-icon { @apply flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-brand-muted; }
 	.tag { @apply rounded-md bg-brand-muted px-2.5 py-1.5 text-xs font-medium text-brand-amber; }
 	.nav-link { @apply transition-colors hover:text-brand-amber; }
-	.eyebrow { @apply font-mono text-xs uppercase tracking-[.22em] text-brand-amber; }
+	.eyebrow { @apply font-mono text-sm uppercase tracking-[.22em] text-brand-amber; }
 	.status-dot { @apply mr-2 inline-block h-1.5 w-1.5 rounded-full bg-brand-amber shadow-[0_0_10px_var(--brand-amber)]; }
 	.button-primary { @apply rounded-full bg-brand-amber px-5 py-3 font-mono text-sm font-medium text-white transition-colors hover:bg-brand-hover; }
 	.theme-toggle { @apply flex h-9 w-9 items-center justify-center rounded-full border border-subtle text-secondary transition-colors hover:border-brand-amber hover:text-brand-amber; }

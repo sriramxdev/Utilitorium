@@ -9,8 +9,8 @@ const allTools = [...aiNotes, ...media, ...parsers];
 const featuredTools = [...allTools].sort((a, b) => (visits[b.id] ?? 0) - (visits[a.id] ?? 0)).slice(0, 5);
 ---
 
-<section id="featured" class="mx-auto max-w-6xl scroll-mt-24 px-5 py-14">
-	<div class="mb-7 flex items-end justify-between"><div><p class="eyebrow mb-3">01 / Signal</p><h2 class="font-heading text-4xl font-bold text-primary">Most visited</h2></div><span class="text-sm text-secondary">Top 5 by community usage</span></div>
+<section id="featured" class="mx-auto w-full max-w-screen-2xl scroll-mt-24 px-4 py-12 sm:px-6 sm:py-14 lg:px-8 xl:px-10">
+	<div class="mb-7 flex flex-col items-start gap-3 sm:flex-row sm:items-end sm:justify-between"><div><p class="eyebrow mb-3">01 / Signal</p><h2 class="font-heading text-4xl font-bold text-primary">Most visited</h2></div><span class="text-base text-secondary">Top 5 by community usage</span></div>
 	<div id="featured-grid" class="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">{featuredTools.map((tool, index) => <ToolCard tool={tool} featured={index === 0} visits={visits[tool.id] ?? 0} />)}</div>
 </section>
 
