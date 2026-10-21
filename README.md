@@ -1,134 +1,171 @@
-# Utilitorium
+# 🛠️ Utilitorium
 
-> A focused workbench for small tools that do one job cleanly.
+> A decoupled, high-utility developer workbench housing single-purpose automation scripts, parsers, and custom web utilities.
 
-Utilitorium is a decoupled Astro showcase hub for automation scripts, media
-pipelines, AI note utilities, and deterministic parsers. The interface uses a
-light/dark token system, responsive glassmorphic cards, and a local visit
-counter that ranks the most visited tools.
+[![Built with Astro](https://img.shields.io/badge/Built%20with-Astro%20v4-FF5D01?style=flat&logo=astro&logoColor=white)](https://astro.build)
+[![Tailwind CSS](https://img.shields.io/badge/Styled%20with-Tailwind%20CSS-38B2AC?style=flat&logo=tailwind-css&logoColor=white)](https://tailwindcss.com)
+[![TypeScript](https://img.shields.io/badge/Language-TypeScript-3178C6?style=flat&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-amber.svg)](LICENSE)
 
-## Highlights
+---
 
-- Astro 7 with TypeScript and Tailwind CSS 4
-- Responsive layout with light and dark themes
-- Persistent theme selection through `localStorage`
-- Data-driven navigation, category sections, footer content, and tool cards
-- Seeded visit counts combined with browser-local visits
-- Live visit counts shown on every card
-- Featured tools ranked by actual visit count
-- Google Fonts: Rajdhani and JetBrains Mono
+## 📌 Overview
 
-## Getting started
+**Utilitorium** is an open-source catalog and runtime workbench built to consolidate practical developer tools that are often scattered across random gist files, shell scripts, or one-off snippets.
 
-### Requirements
+Each utility in Utilitorium is strictly **autonomous and decoupled**:
+- **Browser-Native Tools:** Built directly as interactive, responsive single-page web applications (e.g., client-side KaTeX/GFM note renderers, schema converters, and format parsers).
+- **CLI & Automation Scripts:** Self-contained shell or Python routines served alongside interactive documentation manuals (detailing prerequisites, dependencies, flags, and usage) with direct download and terminal execution endpoints.
 
-- Node.js `>=22.22.0`
-- pnpm
+---
 
-### Install and run
+## 🏗️ Architecture
 
-```bash
-pnpm install
-pnpm dev
-```
-
-Open [http://localhost:4321](http://localhost:4321) to view the portal.
-
-### Production build
-
-```bash
-pnpm build
-pnpm preview
-```
-
-## Deployment
-
-Every push to `main` automatically builds and deploys the site through
-[`.github/workflows/deploy.yml`](./.github/workflows/deploy.yml).
-
-The GitHub Pages site is configured for:
-
-<https://sriramxdev.github.io/Utilitorium/>
-
-GitHub Pages is configured to use **GitHub Actions** as its source. The workflow
-can also be started manually from the **Actions** tab.
-
-## Project structure
+Utilitorium enforces a modular structure where each tool is decoupled into dedicated pages, metadata manifests, and optional static script assets:
 
 ```text
-.
+Utilitorium/
 ├── public/
-│   ├── favicon.svg
-│   └── icons/tools/
+│   ├── icons/                  # Category & tool icon assets
+│   └── scripts/                # Static raw downloadable & terminal-runnable scripts
+│       └── <category>/         # e.g., <tool-script>.sh, <tool-script>.py
 ├── src/
-│   ├── components/
-│   │   ├── categories/       # Category-specific Astro entry points
-│   │   ├── CategorySection.astro
-│   │   ├── Featured.astro
-│   │   ├── Footer.astro
-│   │   ├── Hero.astro
-│   │   ├── Navbar.astro
-│   │   ├── ThemeToggle.astro
-│   │   └── ToolCard.astro
+│   ├── components/             # Reusable shell UI (Navbar, Hero, ToolCard, Footer, ThemeToggle)
 │   ├── data/
-│   │   ├── categories/       # Category metadata
-│   │   ├── tools/            # Cards belonging to each category
-│   │   ├── categories.json   # Navbar category registry
-│   │   ├── footer.json
-│   │   ├── home.json
-│   │   └── visits.json       # Seed visit counts
+│   │   ├── categories.json     # Master category registry
+│   │   ├── home.json           # Landing portal metadata
+│   │   └── tools/              # Category tool summaries (feeds the portal grid)
 │   ├── layouts/
+│   │   └── Layout.astro        # Master HTML shell with theme variables
 │   ├── pages/
+│   │   ├── index.astro         # Portal landing view
+│   │   └── tools/              # Autonomous tool workspaces
+│   │       └── <category>/
+│   │           ├── <tool>.astro  # Tool UI / Interactive workspace / Script manual
+│   │           └── <tool>.json   # Tool configuration & metadata manifest
 │   ├── styles/
+│   │   └── global.css          # CSS theme tokens & fonts (Rajdhani + JetBrains Mono)
 │   └── utils/
-├── astro.config.mjs
-├── package.json
-├── pnpm-lock.yaml
-├── tailwind.config.mjs
-└── tsconfig.json
+│       └── visitTracker.ts     # Client visit metrics
+└── package.json
+
 ```
 
-## Adding a tool
+---
 
-Add one object to the relevant JSON file under
-[`src/data/tools/`](./src/data/tools/):
+## 🚀 Quickstart
 
-```json
-{
-  "id": "my-tool",
-  "name": "My Tool",
-  "description": "A short explanation of what the tool does.",
-  "category": "parsers",
-  "icon": "/icons/tools/my-tool.svg",
-  "tags": ["JSON", "Python"],
-  "url": "https://github.com/sriramxdev/Utilitorium"
-}
+### Prerequisites
+
+* Node.js (`v18.17.0+` or `v20+`)
+* [pnpm](https://pnpm.io/) (recommended package manager)
+
+```bash
+# Clone the repository
+git clone [https://github.com/sriramxdev/Utilitorium.git](https://github.com/sriramxdev/Utilitorium.git)
+cd Utilitorium
+
+# Install dependencies
+pnpm install
+
+# Start local development server
+pnpm dev
+
 ```
 
-The card, tags, icon, category placement, and visit counter are then rendered
-from that data. Add the corresponding seed count to
-[`src/data/visits.json`](./src/data/visits.json) when the tool should begin with
-an established ranking.
+Visit `http://localhost:4321` in your browser.
 
-## Adding a category
+---
 
-Each category has two coordinated files:
+## 💻 Running CLI Scripts Directly via Terminal
 
-1. Metadata in [`src/data/categories/`](./src/data/categories/)
-2. A category Astro entry point in [`src/components/categories/`](./src/components/categories/)
+For utilities implemented as standalone shell or automation scripts, the raw executable files are stored under `public/scripts/<category>/`. Because Astro serves static assets from `public/` directly at the root, users can inspect, fetch, or execute scripts straight from their shell:
 
-Add the category’s `{ "id", "name" }` entry to
-[`src/data/categories.json`](./src/data/categories.json) so it appears in the
-navbar. The category entry point imports its metadata and tool JSON, then passes
-both to the shared `CategorySection` component.
+```bash
+# 1. Inspect script source safely before running
+curl -fsSL [https://raw.githubusercontent.com/sriramxdev/Utilitorium/main/public/scripts/](https://raw.githubusercontent.com/sriramxdev/Utilitorium/main/public/scripts/)<category>/<script-name>.sh | less
 
-## Visit tracking
+# 2. Download script locally
+curl -fsSL -O [https://raw.githubusercontent.com/sriramxdev/Utilitorium/main/public/scripts/](https://raw.githubusercontent.com/sriramxdev/Utilitorium/main/public/scripts/)<category>/<script-name>.sh
+chmod +x <script-name>.sh
+./<script-name>.sh
 
-Seed counts are static and stored in [`src/data/visits.json`](./src/data/visits.json).
-Additional visits are stored only in the visitor’s browser under the
-`utilitorium-visits` `localStorage` key. No analytics service or visitor data is
-sent anywhere.
+# 3. Direct execution (piped)
+bash <(curl -fsSL [https://raw.githubusercontent.com/sriramxdev/Utilitorium/main/public/scripts/](https://raw.githubusercontent.com/sriramxdev/Utilitorium/main/public/scripts/)<category>/<script-name>.sh)
 
-## License
+```
 
-See [`LICENSE`](./LICENSE).
+---
+
+## 🤝 Contribution Guide
+
+We welcome contributions of useful utilities, automation scripts, and developer tools. To keep the project maintainable, all additions must follow the decoupled architecture described below.
+
+### Adding a New Utility
+
+#### Option A: In-Browser Web Tool (Interactive Client App)
+
+1. **Create the Decoupled Tool Pair:**
+Add your UI page and its companion JSON metadata file under `src/pages/tools/<category>/`:
+* `src/pages/tools/<category>/<tool-name>.astro`
+* `src/pages/tools/<category>/<tool-name>.json`
+
+
+2. **Design Guidelines:**
+* Keep tool-specific logic, libraries, and state local to that tool page.
+* Use global CSS tokens (`var(--brand-amber)`, `var(--bg-panel)`, `var(--text-primary)`) for proper light/dark mode support.
+* Use `Rajdhani` for tool titles/headings, `JetBrains Mono` for code/stats, and clean sans-serif for reading copy.
+
+
+3. **Register the Tool Card:**
+Add the tool entry to `src/data/tools/<category>.json` with `"url": "/tools/<category>/<tool-name>"`.
+
+---
+
+#### Option B: Standalone Automation / CLI Script (`.sh`, `.py`)
+
+Because CLI scripts cannot execute in the browser DOM, they follow the **Raw Script + Web Manual** pattern:
+
+1. **Add Raw Script to `public/`:**
+Place the executable file in `public/scripts/<category>/<script-name>.sh`.
+* Include a proper shebang (e.g., `#!/usr/bin/env bash` or `#!/usr/bin/env python3`).
+* Implement dependency verification at the beginning of the script so it fails gracefully if required tools are missing.
+
+
+2. **Define Prerequisites in the Companion JSON:**
+In `src/pages/tools/<category>/<script-name>.json`, specify the exact environment requirements for the tool:
+* System packages (e.g., package manager install commands for Debian/Ubuntu, Fedora, macOS).
+* Minimum language runtimes or kernel modules.
+* Environment variables or configuration flags.
+
+
+3. **Create the Web Documentation Page:**
+In `src/pages/tools/<category>/<script-name>.astro`, render:
+* **Prerequisites Card:** Clear checklist of dependencies with copyable installation commands.
+* **One-Click Download Button:** Linking directly to `/scripts/<category>/<script-name>.sh` with the HTML `download` attribute.
+* **Terminal Snippets:** Copyable `curl -fsSL ... | bash` command blocks.
+* **Source Code Viewer:** Embedded preview of the script logic for security inspection.
+
+
+4. **Register the Tool Card:**
+Add the tool's card information to `src/data/tools/<category>.json`.
+
+---
+
+## 🧪 Development Conventions
+
+* **Theme Compliance:** Avoid hardcoded hex colors. Always reference CSS custom properties (`var(--bg-canvas)`, `var(--bg-panel)`, `var(--border-subtle)`, `var(--brand-amber)`).
+* **Navigation:** Portal tool cards must open their dedicated workspace pages in a new tab (`target="_blank" rel="noopener noreferrer"`).
+* **Isolated State:** Changes inside one tool workspace should never leak into or break another tool.
+
+---
+
+## 📜 License & Attribution
+
+This project is licensed under the [MIT License](https://www.google.com/search?q=LICENSE).
+
+### Attribution & Usage Terms:
+
+* **Free Use:** You are free to use, clone, study, and adapt this repository or its tools.
+* **Mandatory Attribution:** Any fork, clone, redistribution, or hosted instance of Utilitorium (or derived tools) **must retain the original copyright notice** and explicitly quote / attribute back, (linking back to [https://github.com/sriramxdev/Utilitorium](https://github.com/sriramxdev/Utilitorium).
+* **Disclaimer of Liability:** The software is provided "as is", without warranty of any kind, express or implied. In no event shall the author be held liable for any claim, damages, or consequences resulting from the execution or deployment of this software.
