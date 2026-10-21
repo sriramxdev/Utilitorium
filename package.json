@@ -15,7 +15,12 @@
     "@tailwindcss/vite": "^4.3.3",
     "astro": "^7.4.1",
     "clsx": "^2.1.1",
+    "dompurify": "^3.4.17",
+    "marked": "^18.1.1",
     "tailwind-merge": "^3.7.0",
     "tailwindcss": "^4.3.3"
+  },
+  "devDependencies": {
+    "@types/dompurify": "^3.2.0"
   }
 }

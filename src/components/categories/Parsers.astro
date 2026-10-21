@@ -1,7 +1,0 @@
----
-import CategorySection from '../CategorySection.astro';
-import category from '../../data/categories/parsers.json';
-import tools from '../../data/tools/parsers.json';
-const { visits = {} } = Astro.props as { visits?: Record<string, number> };
----
-<CategorySection category={category} tools={tools} visits={visits} />

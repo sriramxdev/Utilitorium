@@ -1,0 +1,18 @@
+{
+  "id": "pdf-json-converter",
+  "name": "Single-Page PDF to JSON Converter",
+  "category": "parsers",
+  "version": "v1.0.0",
+  "description": "Deterministic, schema-compliant structural parser extracting text, tables, and metadata.",
+  "tagline": "A deterministic parser for turning single-page PDF documents into structured JSON.",
+  "utilityNumber": "Utilitorium Utility #03",
+  "icon": "/icons/tools/pdf-json.svg",
+  "tags": ["PDF", "JSON", "AST"],
+  "about": "The converter extracts document text, tables, and metadata into a predictable JSON structure, making downstream automation easier to validate and maintain.",
+  "steps": [
+    { "step": "01. Upload", "desc": "Provide a single-page PDF document to the parser." },
+    { "step": "02. Extract", "desc": "The utility identifies text, tables, and document metadata." },
+    { "step": "03. Structure", "desc": "Download schema-compliant JSON ready for automation workflows." }
+  ],
+  "url": "/tools/parsers/pdf-json-converter"
+}

@@ -1,0 +1,18 @@
+{
+  "id": "realesrgan-video-upscaler",
+  "name": "4K Real-ESRGAN Video Upscaler",
+  "category": "media",
+  "version": "v1.0.0",
+  "description": "Automated FFmpeg pipeline for high-fidelity 2K/4K upscaling using anime and photo models.",
+  "tagline": "A repeatable media pipeline for turning low-resolution footage into high-fidelity video.",
+  "utilityNumber": "Utilitorium Utility #02",
+  "icon": "/icons/tools/ffmpeg-upscaler.svg",
+  "tags": ["FFmpeg", "Real-ESRGAN", "4K"],
+  "about": "This utility combines FFmpeg preparation with Real-ESRGAN inference so media can be upscaled consistently without repeating manual conversion and model-selection steps.",
+  "steps": [
+    { "step": "01. Prepare", "desc": "Choose a source video and select the appropriate model profile." },
+    { "step": "02. Upscale", "desc": "The pipeline extracts frames, processes them, and preserves the source audio." },
+    { "step": "03. Export", "desc": "Review the generated 2K or 4K output and save the finished video." }
+  ],
+  "url": "/tools/media/realesrgan-video-upscaler"
+}

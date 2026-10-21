@@ -1,0 +1,491 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import Footer from '../../../components/Footer.astro';
+import ThemeToggle from '../../../components/ThemeToggle.astro';
+import toolData from './notebooklm-note-renderer.json';
+
+const pageTitle = `${toolData.name} — Utilitorium`;
+---
+
+<Layout title={pageTitle}>
+  <!-- KaTeX core CSS & JS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" />
+  <script is:inline src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <!-- Marked Core -->
+  <script is:inline src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <!-- Official Marked-KaTeX Extension (renders math BEFORE markdown formatting) -->
+  <script is:inline src="https://cdn.jsdelivr.net/npm/marked-katex-extension@5.1.13/lib/index.umd.min.js"></script>
+
+  <!-- Clean Floating Circular Theme Toggle with Ambient Amber Glow -->
+  <aside class="fixed top-5 right-5 sm:top-6 sm:right-8 z-50 print:hidden" aria-label="Theme toggle switch">
+    <div class="relative flex items-center justify-center group">
+      <div class="absolute inset-0 rounded-full bg-[var(--brand-amber)] opacity-25 blur-md group-hover:opacity-60 transition-opacity duration-300"></div>
+      <div class="relative rounded-full shadow-[0_0_15px_rgba(217,82,0,0.25)] dark:shadow-[0_0_20px_rgba(255,145,0,0.35)] transition-transform duration-200 group-hover:scale-105">
+        <ThemeToggle />
+      </div>
+    </div>
+  </aside>
+
+  <!-- Responsive Container -->
+  <main class="min-h-screen pt-6 pb-12 px-3 sm:px-6 w-full max-w-[96vw] 2xl:max-w-[1720px] mx-auto transition-colors duration-300">
+    
+    <!-- Hero / Header Section -->
+    <header class="mb-6 p-5 sm:p-7 rounded-2xl sm:rounded-3xl bg-[var(--bg-panel)] border border-[var(--border-subtle)] shadow-xl backdrop-blur-md relative overflow-hidden group">
+      <div class="absolute -right-24 -top-24 w-72 h-72 bg-[var(--brand-amber)] opacity-10 rounded-full blur-3xl pointer-events-none transition-all duration-500 group-hover:opacity-20"></div>
+
+      <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-5 relative z-10 pr-0 lg:pr-14">
+        <div class="space-y-2.5">
+          <div class="flex flex-wrap items-center gap-2">
+            <span class="px-2.5 py-0.5 text-xs font-mono font-medium rounded-full bg-[var(--brand-muted)] text-[var(--brand-amber)] border border-[var(--brand-amber)]/20">
+              {toolData.badge}
+            </span>
+            <span class="text-xs font-mono text-[var(--text-secondary)]">
+              {toolData.about.projectNotice}
+            </span>
+          </div>
+
+          <h1 class="text-2xl sm:text-3xl lg:text-4xl font-bold font-['Rajdhani'] text-[var(--text-primary)] tracking-tight">
+            {toolData.name}
+          </h1>
+
+          <p class="text-xs sm:text-sm font-['JetBrains_Mono'] text-[var(--text-secondary)] max-w-4xl leading-relaxed">
+            {toolData.tagline}
+          </p>
+        </div>
+
+        <!-- Header Actions -->
+        <div class="flex flex-wrap items-center gap-3 shrink-0">
+          <a 
+            href="#workbench" 
+            class="px-5 py-2 rounded-xl font-['Rajdhani'] font-bold text-sm tracking-wide bg-[var(--brand-amber)] text-white hover:bg-[var(--brand-hover)] transition-all shadow-md shadow-[var(--brand-amber)]/20 text-center"
+          >
+            Open Workbench ⚡
+          </a>
+          <a 
+            href="/" 
+            class="px-5 py-2 rounded-xl font-['Rajdhani'] font-bold text-sm tracking-wide bg-[var(--bg-panel-hover)] text-[var(--text-primary)] border border-[var(--border-subtle)] hover:border-[var(--brand-amber)] transition-all text-center"
+          >
+            ← Back to Hub
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <!-- Info & Steps Grid -->
+    <section class="grid grid-cols-1 lg:grid-cols-3 gap-5 mb-6">
+      <div class="p-5 rounded-2xl bg-[var(--bg-panel)] border border-[var(--border-subtle)] shadow-md flex flex-col justify-between">
+        <div>
+          <h2 class="text-lg sm:text-xl font-bold font-['Rajdhani'] text-[var(--text-primary)] mb-2 flex items-center gap-2">
+            <span>💡</span> {toolData.about.title}
+          </h2>
+          <p class="text-xs sm:text-sm font-['JetBrains_Mono'] text-[var(--text-secondary)] leading-relaxed">
+            {toolData.about.description}
+          </p>
+        </div>
+        <div class="mt-4 pt-3 border-t border-[var(--border-subtle)] flex items-center justify-between text-xs font-mono text-[var(--text-secondary)]">
+          <span>{toolData.categoryLabel}</span>
+          <span class="text-[var(--brand-amber)] font-medium">{toolData.version}</span>
+        </div>
+      </div>
+
+      <div class="lg:col-span-2 p-5 rounded-2xl bg-[var(--bg-panel)] border border-[var(--border-subtle)] shadow-md">
+        <h2 class="text-lg sm:text-xl font-bold font-['Rajdhani'] text-[var(--text-primary)] mb-3 flex items-center gap-2">
+          <span>⚡</span> Steps to Use
+        </h2>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          {toolData.steps.map((s) => (
+            <div class="p-3.5 rounded-xl bg-[var(--bg-canvas)] border border-[var(--border-subtle)] flex flex-col justify-between">
+              <div>
+                <span class="text-xs font-mono font-bold text-[var(--brand-amber)] block mb-0.5">{s.step}</span>
+                <span class="font-['Rajdhani'] font-bold text-sm sm:text-base text-[var(--text-primary)] block mb-1">{s.title}</span>
+                <p class="text-xs font-['JetBrains_Mono'] text-[var(--text-secondary)] leading-relaxed">{s.description}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Full-Width Interactive Workbench -->
+    <section id="workbench" class="grid grid-cols-1 lg:grid-cols-2 gap-5 scroll-mt-24">
+      
+      <!-- Input Panel -->
+      <div class="flex flex-col rounded-2xl bg-[var(--bg-panel)] border border-[var(--border-subtle)] p-4 sm:p-5 shadow-lg">
+        <div class="flex items-center justify-between mb-3 pb-2 border-b border-[var(--border-subtle)]">
+          <label for="raw-input" class="font-['Rajdhani'] font-bold text-lg text-[var(--text-primary)] flex items-center gap-2">
+            <span>📝</span> Raw Notes Input
+          </label>
+          <div class="flex items-center gap-2">
+            <button 
+              id="load-sample-btn" 
+              type="button"
+              class="px-3 py-1 rounded-lg text-xs font-mono font-medium bg-[var(--brand-muted)] text-[var(--brand-amber)] hover:opacity-85 transition-opacity border border-[var(--brand-amber)]/30 cursor-pointer"
+            >
+              Sample
+            </button>
+            <button 
+              id="clear-btn" 
+              type="button"
+              class="px-3 py-1 rounded-lg text-xs font-mono font-medium bg-[var(--bg-panel-hover)] text-[var(--text-secondary)] hover:text-red-500 transition-colors border border-[var(--border-subtle)] cursor-pointer"
+            >
+              Clear
+            </button>
+          </div>
+        </div>
+
+        <div class="relative flex-1">
+          <textarea 
+            id="raw-input" 
+            placeholder="Paste your raw NotebookLM notes with \( and \[ here..."
+            class="w-full h-[62vh] min-h-[460px] p-4 rounded-xl bg-[var(--bg-canvas)] text-[var(--text-primary)] font-['JetBrains_Mono'] text-xs sm:text-sm border border-[var(--border-subtle)] focus:outline-none focus:border-[var(--brand-amber)] transition-colors resize-y leading-relaxed font-mono"
+          ></textarea>
+        </div>
+
+        <div class="mt-3 text-xs font-mono text-[var(--text-secondary)] flex justify-between items-center">
+          <span>Characters: <strong id="char-count" class="text-[var(--text-primary)]">0</strong></span>
+          <span id="validation-msg" class="text-emerald-500 font-medium">Ready</span>
+        </div>
+      </div>
+
+      <!-- Preview Output Panel -->
+      <div class="flex flex-col rounded-2xl bg-[var(--bg-panel)] border border-[var(--border-subtle)] p-4 sm:p-5 shadow-lg">
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-3 pb-2 border-b border-[var(--border-subtle)]">
+          <span class="font-['Rajdhani'] font-bold text-lg text-[var(--text-primary)] flex items-center gap-2">
+            <span>✨</span> Rendered Preview
+          </span>
+          <div class="flex flex-wrap items-center gap-2">
+            <button 
+              id="copy-html-btn" 
+              type="button"
+              class="px-2.5 py-1 rounded-lg text-xs font-mono font-medium bg-[var(--bg-panel-hover)] text-[var(--text-primary)] border border-[var(--border-subtle)] hover:border-[var(--brand-amber)] transition-all cursor-pointer flex items-center gap-1.5"
+            >
+              <span>📋</span> Copy HTML
+            </button>
+            <button 
+              id="export-md-btn" 
+              type="button"
+              class="px-2.5 py-1 rounded-lg text-xs font-mono font-medium bg-[var(--bg-panel-hover)] text-[var(--text-primary)] border border-[var(--border-subtle)] hover:border-[var(--brand-amber)] transition-all cursor-pointer flex items-center gap-1.5"
+            >
+              <span>💾</span> Export .md
+            </button>
+            <button 
+              id="export-pdf-btn" 
+              type="button"
+              class="px-2.5 py-1 rounded-lg text-xs font-mono font-medium bg-[var(--brand-amber)] text-white hover:bg-[var(--brand-hover)] transition-all cursor-pointer flex items-center gap-1.5 shadow-sm"
+            >
+              <span>🖨️</span> Export PDF
+            </button>
+          </div>
+        </div>
+
+        <div 
+          id="output" 
+          class="flex-1 h-[62vh] min-h-[460px] overflow-y-auto p-5 rounded-xl bg-[var(--bg-canvas)] border border-[var(--border-subtle)] text-xs sm:text-sm text-[var(--text-primary)] space-y-4"
+        >
+          <div class="h-full flex flex-col items-center justify-center text-center text-[var(--text-secondary)] space-y-2 py-20">
+            <span class="text-3xl">🔍</span>
+            <p class="font-mono text-xs sm:text-sm">Waiting for notes... Paste text or click "Sample".</p>
+          </div>
+        </div>
+
+        <div class="mt-3 text-xs font-mono text-[var(--text-secondary)] flex justify-between items-center">
+          <span>Renderer: Marked-KaTeX Engine Active</span>
+          <span id="render-stats">Words: 0 | Read: 0s</span>
+        </div>
+      </div>
+
+    </section>
+  </main>
+
+  <!-- Dedicated Tool Footer -->
+  <footer class="w-full py-8 border-t border-[var(--border-subtle)]/50 mt-12 bg-transparent transition-colors duration-300">
+    <div class="w-full max-w-[96vw] 2xl:max-w-[1720px] mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-['JetBrains_Mono'] text-[var(--text-secondary)]">
+      <div class="flex items-center gap-2">
+        <a href="/" class="hover:text-[var(--brand-amber)] transition-colors font-medium">
+          NotebookLM Notes Renderer
+        </a>
+        <span>•</span>
+        <span>Part of the Utilitorium project by <a href="https://sriramxdev.me" target="_blank" rel="noopener noreferrer" class="text-[var(--brand-amber)] hover:underline font-semibold">Sri Ram Sharma</a></span>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <span class="flex items-center gap-1.5">
+          <span>Designed with</span>
+          <a href="https://astro.build" target="_blank" rel="noopener noreferrer" class="hover:text-[var(--text-primary)] transition-colors font-medium">Astro</a>
+        </span>
+      </div>
+    </div>
+  </footer>
+</Layout>
+
+<style is:global>
+  /* --- NotebookLM-Faithful Prose & Math Styling --- */
+  #output {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    color: var(--text-primary);
+    line-height: 1.75;
+    font-size: 0.95rem;
+  }
+
+  /* Headings */
+  #output h1 {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--brand-amber);
+    margin-top: 1.25rem;
+    margin-bottom: 0.5rem;
+  }
+  #output h2 {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border-subtle);
+    padding-bottom: 0.35rem;
+  }
+  #output h3, #output h4 {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-top: 1.2rem;
+    margin-bottom: 0.35rem;
+  }
+
+  #output p {
+    margin-top: 0.65rem;
+    margin-bottom: 0.65rem;
+    color: var(--text-primary);
+  }
+
+  /* Standalone Display Math Formulas: Perfectly Centered like NotebookLM */
+  #output .katex-display {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    margin: 1.5rem 0 !important;
+    padding: 0.4rem 0;
+    overflow-x: auto;
+    text-align: center;
+  }
+
+  #output .katex {
+    font-size: 1.08em;
+  }
+
+  /* Lists */
+  #output ul {
+    list-style-type: disc;
+    padding-left: 1.5rem;
+    margin: 0.6rem 0;
+  }
+  #output ol {
+    list-style-type: decimal;
+    padding-left: 1.5rem;
+    margin: 0.6rem 0;
+  }
+  #output li {
+    margin: 0.3rem 0;
+  }
+
+  /* Block diagrams & preformatted ASCII */
+  #output pre {
+    background: var(--bg-panel-hover);
+    border: 1px solid var(--border-subtle);
+    border-radius: 0.75rem;
+    padding: 1rem 1.25rem;
+    overflow-x: auto;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.82rem;
+    line-height: 1.5;
+    margin: 1.25rem auto;
+    max-width: fit-content;
+    display: block;
+  }
+
+  /* Inline code */
+  #output :not(pre) > code {
+    background: var(--bg-panel-hover);
+    border: 1px solid var(--border-subtle);
+    padding: 0.15rem 0.35rem;
+    border-radius: 0.3rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85em;
+    color: var(--brand-amber);
+  }
+
+  /* Tables */
+  #output table {
+    width: auto;
+    max-width: 100%;
+    margin: 1.25rem auto;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+    border-radius: 0.5rem;
+    overflow: hidden;
+  }
+  #output th, #output td {
+    border: 1px solid var(--border-subtle);
+    padding: 0.6rem 1rem;
+    text-align: left;
+  }
+  #output th {
+    background: var(--bg-panel-hover);
+    color: var(--text-primary);
+    font-weight: 600;
+  }
+
+  /* Print Stylesheet for Clean PDF Export */
+  @media print {
+    body * {
+      visibility: hidden;
+    }
+    #output, #output * {
+      visibility: visible;
+    }
+    #output {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100% !important;
+      height: auto !important;
+      max-height: none !important;
+      overflow: visible !important;
+      background: white !important;
+      color: black !important;
+      border: none !important;
+      padding: 0 !important;
+    }
+  }
+</style>
+
+<script define:vars={{ sampleText: toolData.sampleMarkdown, pageTitle }}>
+  if (pageTitle) {
+    document.title = pageTitle;
+  }
+
+  const input = document.getElementById('raw-input');
+  const outputContainer = document.getElementById('output');
+  const charCount = document.getElementById('char-count');
+  const valMsg = document.getElementById('validation-msg');
+  const stats = document.getElementById('render-stats');
+  const sampleBtn = document.getElementById('load-sample-btn');
+  const clearBtn = document.getElementById('clear-btn');
+  const copyBtn = document.getElementById('copy-html-btn');
+  const exportBtn = document.getElementById('export-md-btn');
+  const exportPdfBtn = document.getElementById('export-pdf-btn');
+
+  // Initialize marked with markedKatex extension
+  let isInitialized = false;
+  function initMarked() {
+    if (isInitialized) return;
+    if (typeof marked !== 'undefined') {
+      const extension = window.markedKatex || (typeof markedKatex !== 'undefined' ? markedKatex : null);
+      if (extension) {
+        marked.use(extension({
+          throwOnError: false,
+          nonStandard: true
+        }));
+      }
+      marked.setOptions({ gfm: true, breaks: true });
+      isInitialized = true;
+    }
+  }
+
+  function processAndRender() {
+    initMarked();
+    let content = input.value;
+    charCount.textContent = content.length.toLocaleString();
+
+    if (!content.trim()) {
+      outputContainer.innerHTML = `
+        <div class="h-full flex flex-col items-center justify-center text-center text-[var(--text-secondary)] space-y-2 py-20">
+          <span class="text-3xl">🔍</span>
+          <p class="font-mono text-xs sm:text-sm">Waiting for notes... Paste text or click "Sample".</p>
+        </div>
+      `;
+      valMsg.textContent = 'Ready';
+      valMsg.className = 'text-emerald-500 font-medium';
+      stats.textContent = 'Words: 0 | Read: 0s';
+      return;
+    }
+
+    try {
+      // 1. Unescape NotebookLM backslashes into standard math blocks:
+      // [ and ] => $$...$$ (Display Math -> Auto-Centered)
+      // \\(and\\) => $...$   (Inline Math  -> Inline Flow)
+      content = content
+        .replace(/\\\\\[([\s\S]*?)\\\\\]/g, '\n\n$$$$$1$$$$\n\n')
+        .replace(/\\\[([\s\S]*?)\\\]/g, '\n\n$$$$$1$$$$\n\n')
+        .replace(/\\\\\(([\s\S]*?)\\\\\)/g, '$$$1$$')
+        .replace(/\\\(([\s\S]*?)\\\)/g, '$$$1$$');
+
+	  // -------------------------------------------------------------
+      // 🛡️ Edge-Case Pre-Scrubber: Auto-close unclosed LaTeX environments
+      // -------------------------------------------------------------
+      const openCases = (content.match(/\\begin\{cases\}/g) || []).length;
+      const closeCases = (content.match(/\\end\{cases\}/g) || []).length;
+      if (openCases > closeCases) {
+        content += '\n\\end{cases}'.repeat(openCases - closeCases);
+      }
+      // -------------------------------------------------------------	
+      
+	  // 2. Parse directly through marked (which processes Katex first through the extension)
+      outputContainer.innerHTML = marked.parse(content);
+
+      // 3. Stats calculation
+      const words = content.trim().split(/\s+/).filter(Boolean).length;
+      const readSec = Math.ceil((words / 200) * 60);
+      stats.textContent = `Words: ${words.toLocaleString()} | Read: ${readSec}s`;
+      valMsg.textContent = 'Live Parsed ✓';
+      valMsg.className = 'text-emerald-500 font-medium';
+    } catch (err) {
+      valMsg.textContent = 'Parsing Notice ⚠';
+      valMsg.className = 'text-amber-500 font-medium';
+    }
+  }
+
+  input?.addEventListener('input', processAndRender);
+
+  sampleBtn?.addEventListener('click', () => {
+    input.value = sampleText;
+    processAndRender();
+  });
+
+  clearBtn?.addEventListener('click', () => {
+    input.value = '';
+    processAndRender();
+  });
+
+  copyBtn?.addEventListener('click', () => {
+    navigator.clipboard.writeText(outputContainer.innerHTML).then(() => {
+      const orig = copyBtn.innerHTML;
+      copyBtn.innerHTML = '<span>✓</span> Copied!';
+      setTimeout(() => { copyBtn.innerHTML = orig; }, 1800);
+    });
+  });
+
+  exportBtn?.addEventListener('click', () => {
+    if (!input.value.trim()) return;
+    const blob = new Blob([input.value], { type: 'text/markdown;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'notebooklm-notes-sanitized.md';
+    a.click();
+    URL.revokeObjectURL(url);
+  });
+
+  exportPdfBtn?.addEventListener('click', () => {
+    if (!input.value.trim()) return;
+    window.print();
+  });
+
+  // Run on initial page load if input has content
+  window.addEventListener('DOMContentLoaded', () => {
+    if (input.value) processAndRender();
+  });	
+</script>

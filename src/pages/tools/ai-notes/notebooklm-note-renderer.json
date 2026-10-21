@@ -1,0 +1,36 @@
+{
+  "id": "notebooklm-notes-renderer",
+  "name": "NotebookLM Notes Renderer",
+  "category": "ai-notes",
+  "description": "Clean and structure raw NotebookLM markdown notes into sanitized, reusable documentation.",
+  "icon": "/icons/tools/notebooklm.svg",
+  "tags": ["NotebookLM", "Markdown", "Notes"],
+  "url": "/tools/ai-notes/notebooklm-note-renderer",
+  "categoryLabel": "AI & Note Tools",
+  "badge": "Utilitorium Utility #01",
+  "version": "v1.0.0-stable",
+  "tagline": "Clean parsing, structural sanitization, and professional visual export for raw NotebookLM markdown summaries and research notes.",
+  "about": {
+    "title": "What is this utility?",
+    "description": "NotebookLM generates powerful AI research synopses, but raw exports frequently contain broken list hierarchies, unescaped tags, and non-standard block formatting. This utility sanitizes, formats, and renders raw notes into clean, responsive layout blocks ready for documentation and archiving.",
+    "projectNotice": "Part of the Utilitorium workbench ecosystem"
+  },
+  "steps": [
+    {
+      "step": "01. Paste",
+      "title": "Input Notes",
+      "description": "Paste your exported NotebookLM markdown or raw summary text into the left pane."
+    },
+    {
+      "step": "02. Sanitize",
+      "title": "Auto Process",
+      "description": "The sanitization engine normalizes headers, cleans artifacts, and renders live output."
+    },
+    {
+      "step": "03. Export",
+      "title": "Copy or Save",
+      "description": "Copy clean HTML, download the markdown, or export clean styled PDFs."
+    }
+  ],
+  "sampleMarkdown": "# Executive Summary: Edge AI Sign Language Inference\n\n## Core Findings\n- **Kinematic Token Pruning:** Reduces redundant frames across temporal sequences by over **42%** without degrading accuracy.\n- **Spatial-Temporal GCNs:** Effectively models multi-joint skeletal graph nodes across 2D/3D coordinate spaces.\n- **Deterministic Grounding:** Output representations remain strictly tied to verified lexical tokens.\n\n### Pipeline Architecture\n> \"A minimal tensor footprint in preprocessing dictates real-time latency viability on micro-accelerators.\"\n\n1. **Landmark Extraction:** High-framerate frame ingestion.\n2. **Graph Formulation:** Adjacency matrix construction across joints.\n3. **Inference Execution:** Low-latency execution with INT8 precision.\n"
+}

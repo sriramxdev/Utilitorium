@@ -1,5 +1,5 @@
 [
-  { "id": "ai-notes", "name": "AI & Note Tools" },
-  { "id": "media", "name": "Media & Upscaling" },
-  { "id": "parsers", "name": "Parsers & Automation" }
+  { "id": "ai-notes", "name": "AI & Note Tools", "number": "02", "description": "Tools for turning dense research into clear, useful artifacts." },
+  { "id": "media", "name": "Media & Upscaling", "number": "03", "description": "Pipelines that make high-fidelity media processing repeatable." },
+  { "id": "parsers", "name": "Parsers & Automation", "number": "04", "description": "Deterministic utilities for structured extraction and transformation." }
 ]

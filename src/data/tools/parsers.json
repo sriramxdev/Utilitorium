@@ -1,3 +1,0 @@
-[
-  { "id": "pdf-json-converter", "name": "Single-Page PDF to JSON Converter", "description": "Deterministic, schema-compliant structural parser extracting text, tables, and metadata.", "category": "parsers", "icon": "/icons/tools/pdf-json.svg", "tags": ["PDF", "JSON", "AST"], "url": "https://github.com/sriramxdev/Utilitorium" }
-]

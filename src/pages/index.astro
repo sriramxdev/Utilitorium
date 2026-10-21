@@ -5,10 +5,17 @@ import Hero from '../components/Hero.astro';
 import Featured from '../components/Featured.astro';
 import Footer from '../components/Footer.astro';
 import categories from '../data/categories.json';
-import AiNotes from '../components/categories/AiNotes.astro';
-import Media from '../components/categories/Media.astro';
-import Parsers from '../components/categories/Parsers.astro';
+import aiNotes from './tools/ai-notes/notebooklm-note-renderer.json';
+import media from './tools/media/realesrgan-video-upscaler.json';
+import parsers from './tools/parsers/pdf-json-converter.json';
+import CategorySection from '../components/CategorySection.astro';
 import visits from '../data/visits.json';
+
+const toolsByCategory = {
+	'ai-notes': [aiNotes],
+	media: [media],
+	parsers: [parsers]
+};
 ---
 
 <Layout>
@@ -16,9 +23,9 @@ import visits from '../data/visits.json';
 	<main>
 		<Hero />
 		<Featured />
-		<AiNotes visits={visits} />
-		<Media visits={visits} />
-		<Parsers visits={visits} />
+		{categories.map((category) => (
+			<CategorySection category={category} tools={toolsByCategory[category.id as keyof typeof toolsByCategory]} visits={visits} />
+		))}
 	</main>
 	<Footer />
 </Layout>

@@ -1,11 +1,11 @@
 ---
 import ToolCard from './ToolCard.astro';
-import aiNotes from '../data/tools/ai-notes.json';
-import media from '../data/tools/media.json';
-import parsers from '../data/tools/parsers.json';
+import aiNotes from '../pages/tools/ai-notes/notebooklm-note-renderer.json';
+import media from '../pages/tools/media/realesrgan-video-upscaler.json';
+import parsers from '../pages/tools/parsers/pdf-json-converter.json';
 import visits from '../data/visits.json';
 
-const allTools = [...aiNotes, ...media, ...parsers];
+const allTools = [aiNotes, media, parsers];
 const featuredTools = [...allTools].sort((a, b) => (visits[b.id] ?? 0) - (visits[a.id] ?? 0)).slice(0, 5);
 ---
 
