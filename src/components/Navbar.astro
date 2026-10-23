@@ -7,23 +7,24 @@ interface Category {
 }
 
 const { categories } = Astro.props as { categories: Category[] };
+const baseUrl = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
 ---
 
 <header class="sticky top-3 z-20 mx-auto w-full max-w-screen-2xl px-4 sm:top-4 sm:px-6 lg:px-8 xl:px-10">
 	<nav class="glass-panel flex flex-wrap items-center justify-between gap-4 rounded-2xl px-4 py-3 sm:flex-nowrap sm:gap-5 sm:rounded-full sm:px-5" aria-label="Main navigation">
-		<a href="/" class="font-heading text-2xl font-bold tracking-wide text-primary">UTILITORIUM<span class="text-brand-amber">.</span></a>
+		<a href={baseUrl} class="font-heading text-2xl font-bold tracking-wide text-primary">UTILITORIUM<span class="text-brand-amber">.</span></a>
 		<div class="hidden items-center gap-7 text-lg text-secondary sm:flex">
-			<a class="nav-link" href="/#hero">Home</a>
-			<a class="nav-link" href="/#featured">Featured</a>
+			<a class="nav-link" href={`${baseUrl}#hero`}>Home</a>
+			<a class="nav-link" href={`${baseUrl}#featured`}>Featured</a>
 			<div id="category-menu" class="category-menu relative">
 				<button class="nav-link cursor-pointer border-0 bg-transparent p-0 text-lg" type="button" aria-expanded="false" aria-controls="category-dropdown">
 					Categories <span class="ml-1 text-brand-amber">⌄</span>
 				</button>
 				<div id="category-dropdown" class="category-dropdown glass-panel absolute right-0 top-5 w-56 rounded-xl p-2 pt-4 shadow-xl" aria-label="Category links">
-					{categories.map((category) => <a class="nav-link block rounded-lg px-3 py-2 text-lg hover:bg-panel-hover" href={`/#${category.id}`}>{category.name}</a>)}
+					{categories.map((category) => <a class="nav-link block rounded-lg px-3 py-2 text-lg hover:bg-panel-hover" href={`${baseUrl}#${category.id}`}>{category.name}</a>)}
 				</div>
 			</div>
-			<a class="nav-link" href="/#footer">About</a>
+			<a class="nav-link" href={`${baseUrl}#footer`}>About</a>
 		</div>
 		<button id="mobile-menu-button" class="theme-toggle sm:hidden" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open navigation menu">
 			<span aria-hidden="true">☰</span>
@@ -31,10 +32,10 @@ const { categories } = Astro.props as { categories: Category[] };
 		<ThemeToggle />
 		<div id="mobile-menu" class="hidden w-full basis-full border-t border-subtle/60 pt-3 sm:hidden">
 			<div class="flex flex-col gap-1 text-lg text-secondary">
-				<a class="nav-link rounded-lg px-3 py-2" href="/#hero">Home</a>
-				<a class="nav-link rounded-lg px-3 py-2" href="/#featured">Featured</a>
-				{categories.map((category) => <a class="nav-link rounded-lg px-3 py-2" href={`/#${category.id}`}>{category.name}</a>)}
-				<a class="nav-link rounded-lg px-3 py-2" href="/#footer">About</a>
+				<a class="nav-link rounded-lg px-3 py-2" href={`${baseUrl}#hero`}>Home</a>
+				<a class="nav-link rounded-lg px-3 py-2" href={`${baseUrl}#featured`}>Featured</a>
+				{categories.map((category) => <a class="nav-link rounded-lg px-3 py-2" href={`${baseUrl}#${category.id}`}>{category.name}</a>)}
+				<a class="nav-link rounded-lg px-3 py-2" href={`${baseUrl}#footer`}>About</a>
 			</div>
 		</div>
 	</nav>

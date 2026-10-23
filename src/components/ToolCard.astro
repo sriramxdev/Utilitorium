@@ -12,6 +12,7 @@ interface Tool {
 const { tool, featured = false, visits = 0 } = Astro.props as { tool: Tool; featured?: boolean; visits?: number };
 const baseUrl = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
 const iconPath = `${baseUrl}${tool.icon.replace(/^\/+/, '')}`;
+const toolUrl = `${baseUrl}${tool.url.replace(/^\/+/, '')}`;
 ---
 
 <article class:list={['tool-card group', { 'featured-card': featured }]} data-tool-id={tool.id}>
@@ -29,5 +30,5 @@ const iconPath = `${baseUrl}${tool.icon.replace(/^\/+/, '')}`;
 	<div class="mt-5 flex flex-wrap gap-2">
 		{tool.tags.map((tag) => <span class="tag">{tag}</span>)}
 	</div>
-	<a class="absolute inset-0" href={tool.url} target="_blank" rel="noopener noreferrer" aria-label={`Open ${tool.name}`} data-visit-tool={tool.id}></a>
+	<a class="absolute inset-0" href={toolUrl} target="_blank" rel="noopener noreferrer" aria-label={`Open ${tool.name}`} data-visit-tool={tool.id}></a>
 </article>

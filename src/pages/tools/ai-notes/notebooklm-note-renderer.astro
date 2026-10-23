@@ -2,6 +2,8 @@
 import Layout from '../../../layouts/Layout.astro';
 import Footer from '../../../components/Footer.astro';
 import ThemeToggle from '../../../components/ThemeToggle.astro';
+
+const baseUrl = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
 import toolData from './notebooklm-note-renderer.json';
 
 const pageTitle = `${toolData.name} — Utilitorium`;
@@ -62,7 +64,7 @@ const pageTitle = `${toolData.name} — Utilitorium`;
             Open Workbench ⚡
           </a>
           <a 
-            href="/" 
+            href={baseUrl}
             class="px-5 py-2 rounded-xl font-['Rajdhani'] font-bold text-sm tracking-wide bg-[var(--bg-panel-hover)] text-[var(--text-primary)] border border-[var(--border-subtle)] hover:border-[var(--brand-amber)] transition-all text-center"
           >
             ← Back to Hub
@@ -201,7 +203,7 @@ const pageTitle = `${toolData.name} — Utilitorium`;
   <footer class="w-full py-8 border-t border-[var(--border-subtle)]/50 mt-12 bg-transparent transition-colors duration-300">
     <div class="w-full max-w-[96vw] 2xl:max-w-[1720px] mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-['JetBrains_Mono'] text-[var(--text-secondary)]">
       <div class="flex items-center gap-2">
-        <a href="/" class="hover:text-[var(--brand-amber)] transition-colors font-medium">
+        <a href={baseUrl} class="hover:text-[var(--brand-amber)] transition-colors font-medium">
           NotebookLM Notes Renderer
         </a>
         <span>•</span>
