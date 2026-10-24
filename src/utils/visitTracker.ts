@@ -1,4 +1,4 @@
-const WORKER_URL = "https://utilitorium-counter.<your-account-subdomain>.workers.dev";
+const WORKER_URL = "https://utilitorium-counter.sriramsharma-dev.workers.dev";
 
 export async function fetchViews(toolId: string): Promise<number> {
   try {
