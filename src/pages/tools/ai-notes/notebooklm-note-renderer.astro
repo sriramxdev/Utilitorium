@@ -491,3 +491,11 @@ const pageTitle = `${toolData.name} — Utilitorium`;
     if (input.value) processAndRender();
   });	
 </script>
+<!-- Rest of your template / layout code above -->
+
+<script>
+  import { incrementViews } from '../../../utils/visitTracker';
+
+  // Pass the exact tool ID defined in your tools JSON
+  incrementViews('notebooklm-notes');
+</script>

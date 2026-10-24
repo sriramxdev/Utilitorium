@@ -1,14 +1,30 @@
-export const VISITS_STORAGE_KEY = 'utilitorium-visits';
+const WORKER_URL = "https://utilitorium-counter.<your-account-subdomain>.workers.dev";
 
-export function getVisitCount(toolId: string, seed = 0): number {
-	if (typeof localStorage === 'undefined') return seed;
-	const visits = JSON.parse(localStorage.getItem(VISITS_STORAGE_KEY) ?? '{}') as Record<string, number>;
-	return seed + (visits[toolId] ?? 0);
+export async function fetchViews(toolId: string): Promise<number> {
+  try {
+    const res = await fetch(`${WORKER_URL}?id=${encodeURIComponent(toolId)}`);
+    const data = await res.json();
+    return data.views ?? 0;
+  } catch (err) {
+    console.error(`Failed to fetch views for ${toolId}:`, err);
+    return 0;
+  }
 }
 
-export function recordVisit(toolId: string): void {
-	if (typeof localStorage === 'undefined') return;
-	const visits = JSON.parse(localStorage.getItem(VISITS_STORAGE_KEY) ?? '{}') as Record<string, number>;
-	visits[toolId] = (visits[toolId] ?? 0) + 1;
-	localStorage.setItem(VISITS_STORAGE_KEY, JSON.stringify(visits));
+export async function incrementViews(toolId: string): Promise<number> {
+  // Avoid inflating counts during local pnpm dev
+  if (import.meta.env.DEV) {
+    return 0;
+  }
+
+  try {
+    const res = await fetch(`${WORKER_URL}?id=${encodeURIComponent(toolId)}`, {
+      method: "POST",
+    });
+    const data = await res.json();
+    return data.views ?? 0;
+  } catch (err) {
+    console.error(`Failed to increment views for ${toolId}:`, err);
+    return 0;
+  }
 }
