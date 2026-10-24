@@ -27,7 +27,7 @@ jobs:
         with:
           node-version: 22
           package-manager: pnpm
-          path: / # Forces base path to root '/' and disables repository name injection
+          path: .
 
   deploy:
     needs: build

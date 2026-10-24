@@ -15,15 +15,21 @@ const featuredTools = [...allTools].sort((a, b) => (visits[b.id] ?? 0) - (visits
 </section>
 
 <script>
-	import { getVisitCount, recordVisit } from '../utils/visitTracker';
+	import { fetchViews, incrementViews } from '../utils/visitTracker';
 	import seedVisits from '../data/visits.json';
 
-	const getVisits = (id: string) => getVisitCount(id, seedVisits[id as keyof typeof seedVisits] ?? 0);
+	const visitCounts = new Map<string, number>();
+	const getVisits = (id: string) => visitCounts.get(id) ?? seedVisits[id as keyof typeof seedVisits] ?? 0;
 
-	document.querySelectorAll<HTMLElement>('[data-visit-count]').forEach((count) => {
+	const updateVisitCount = async (count: HTMLElement) => {
 		const id = count.dataset.visitCount;
-		if (id) count.textContent = `${getVisits(id)} visits`;
-	});
+		if (!id) return;
+		const views = await fetchViews(id);
+		if (views > 0) visitCounts.set(id, views);
+		count.textContent = `${getVisits(id)} visits`;
+	};
+
+	[...document.querySelectorAll<HTMLElement>('[data-visit-count]')].forEach(updateVisitCount);
 
 	const featuredGrid = document.querySelector('#featured-grid');
 	const sortFeatured = () => {
@@ -38,10 +44,12 @@ const featuredTools = [...allTools].sort((a, b) => (visits[b.id] ?? 0) - (visits
 		link.addEventListener('click', () => {
 			const id = link.dataset.visitTool;
 			if (!id) return;
-			recordVisit(id);
-			const count = document.querySelector<HTMLElement>(`[data-visit-count="${id}"]`);
-			if (count) count.textContent = `${getVisits(id)} visits`;
-			sortFeatured();
+			void incrementViews(id).then((views) => {
+				if (views > 0) visitCounts.set(id, views);
+				const count = document.querySelector<HTMLElement>(`[data-visit-count="${id}"]`);
+				if (count) count.textContent = `${getVisits(id)} visits`;
+				sortFeatured();
+			});
 		});
 	});
 </script>
